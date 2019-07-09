@@ -7,7 +7,6 @@ if [ ${#USER_PWD} == 0 ] ; then
 fi
 
 read -p "Setting SSH's Port  : " USER_PORT
-read -p "Setting notebook's Port  : " NOTEBOOK_PORT
 read -p "Setting tensorboard's Port  : " TENSORBOARD_PORT
 
 if [ ${#USER_NAME} == 0 -o ${#USER_PORT} == 0 -o ${#TENSORBOARD_PORT} == 0 ] ; then
@@ -27,8 +26,6 @@ sudo nvidia-docker run -itd \
                 --name $USER_NAME \
                 --hostname $USER_NAME \
                 pytorch/pytorch:latest &> /dev/null
-
-# sudo docker exec -ti $USER_NAME sudo sh -c "sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y openssh-server"
 
 sudo docker exec -ti $USER_NAME sudo sh -c "sudo useradd -m $USER_NAME -s /bin/bash;
                                          echo \"${USER_NAME}:${USER_PWD}\" | chpasswd;
