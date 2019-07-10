@@ -29,10 +29,9 @@ sudo nvidia-docker run -itd \
 
 sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server"
 
-sudo docker exec -ti $USER_NAME sh -c "useradd -m $USER_NAME;
+sudo docker exec -ti $USER_NAME sh -c "useradd -m $USER_NAME -s /bin/bash;
                                        echo \"${USER_NAME}:${USER_PWD}\" | chpasswd;
                                        adduser $USER_NAME;
-                                       echo \"export LANG=C.UTF-8\" | tee -a /home/$USER_NAME/.bashrc;
                                        wget -P /etc/fail2ban/ https://raw.githubusercontent.com/voidful/DockerBash/master/jail.local;"
 
 sudo docker restart $USER_NAME
