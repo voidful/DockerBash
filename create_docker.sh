@@ -27,14 +27,14 @@ sudo nvidia-docker run -itd \
                 --hostname $USER_NAME \
                 pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel &> /dev/null
 
-sudo docker exec -ti $USER_NAME sh -c "sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y openssh-server"
+sudo docker exec -ti $USER_NAME sh -c "apt-get update && sudo apt-get upgrade && sudo apt-get install -y openssh-server"
 
-sudo docker exec -ti $USER_NAME sh -c "sudo useradd -m $USER_NAME -s /bin/bash;
+sudo docker exec -ti $USER_NAME sh -c "useradd -m $USER_NAME -s /bin/bash;
                                        echo \"${USER_NAME}:${USER_PWD}\" | chpasswd;
-                                       sudo adduser $USER_NAME sudo;
+                                       adduser $USER_NAME sudo;
                                        echo \"export LANG=C.UTF-8\" | tee -a /home/$USER_NAME/.bashrc;
-                                       sudo wget -P /etc/fail2ban/ https://raw.githubusercontent.com/voidful/DockerBash/master/jail.local;
-                                       sudo rm /var/run/fail2ban/fail2ban.sock"
+                                       wget -P /etc/fail2ban/ https://raw.githubusercontent.com/voidful/DockerBash/master/jail.local;
+                                       rm /var/run/fail2ban/fail2ban.sock"
 
 sudo docker restart $USER_NAME
 
