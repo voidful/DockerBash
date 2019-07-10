@@ -25,9 +25,11 @@ sudo nvidia-docker run -itd \
                 -p $TENSORBOARD_PORT:6006 \
                 --name $USER_NAME \
                 --hostname $USER_NAME \
-                pytorch/pytorch:latest &> /dev/null
+                pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel &> /dev/null
 
-sudo docker exec -ti $USER_NAME sudo sh -c "sudo useradd -m $USER_NAME -s /bin/bash;
+sudo docker exec -ti $USER_NAME sudo sh -c "apt-get update && sudo apt-get upgrade && sudo apt-get install -y openssh-server"
+
+sudo docker exec -ti $USER_NAME sudo sh -c "useradd -m $USER_NAME -s /bin/bash;
                                          echo \"${USER_NAME}:${USER_PWD}\" | chpasswd;
                                          sudo adduser $USER_NAME sudo;
                                          echo \"export LANG=C.UTF-8\" | tee -a /home/$USER_NAME/.bashrc;
@@ -36,6 +38,6 @@ sudo docker exec -ti $USER_NAME sudo sh -c "sudo useradd -m $USER_NAME -s /bin/b
 
 sudo docker restart $USER_NAME
 
-sudo docker exec -ti $USER_NAME sudo sh -c "sudo /etc/init.d/ssh start"
+sudo docker exec -ti $USER_NAME sudo sh -c "/etc/init.d/ssh start"
 
 echo "Container create finish"
