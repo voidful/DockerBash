@@ -29,7 +29,7 @@ sudo nvidia-docker run -itd \
 
 sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server"
 
-sudo docker exec -ti $USER_NAME sh -c "useradd -m $USER_NAME -s /bin/bash;
+sudo docker exec -ti $USER_NAME sh -c "useradd -m $USER_NAME;
                                        echo \"${USER_NAME}:${USER_PWD}\" | chpasswd;
                                        adduser $USER_NAME;
                                        echo \"export LANG=C.UTF-8\" | tee -a /home/$USER_NAME/.bashrc;
