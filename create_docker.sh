@@ -33,8 +33,8 @@ sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && a
 sudo docker exec -ti $USER_NAME sh -c "echo \"root:${USER_PWD}\" | chpasswd;
                                        sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config;
                                        sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd;
-                                       sed '$ a export PATH=$PATH:/bin' /etc/profile;
-                                       sed '$ a export PATH=\"/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/bin:\$PATH\"' ~/.profile;
+                                       sed '$ a export PATH=$PATH:/bin' /etc/environment;
+                                       sed '$ a export PATH=\"/opt/conda/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/bin:\$PATH\"' ~/.environment;
                                        wget -P /etc/fail2ban/ https://raw.githubusercontent.com/voidful/DockerBash/master/jail.local;"
 
 sudo docker restart $USER_NAME
