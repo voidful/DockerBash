@@ -20,7 +20,7 @@ echo "Password: ${USER_PWD}"
 echo "Port: ${USER_PORT}"
 echo "tensorboard Port: ${TENSORBOARD_PORT}"
 
-sudo nvidia-docker run -itd \
+sudo docker run -itd \
                 -p $USER_PORT:22 \
                 -p $TENSORBOARD_PORT:6006 \
                 --name $USER_NAME \
