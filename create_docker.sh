@@ -40,6 +40,6 @@ sudo docker exec -ti $USER_NAME sh -c "echo \"root:${USER_PWD}\" | chpasswd;
 
 sudo docker restart $USER_NAME
 
-sudo docker exec -ti $USER_NAME sh -c "service ssh start 'echo $PATH'"
+sudo docker exec -ti $USER_NAME sh -c "service ssh start"
 
 echo "Container create finish"
