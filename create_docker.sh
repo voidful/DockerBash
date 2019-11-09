@@ -25,6 +25,7 @@ sudo docker run -itd \
                 -p $TENSORBOARD_PORT:6006 \
                 --name $USER_NAME \
                 --hostname $USER_NAME \
+                --gpus \
                 pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
 
 sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server"
