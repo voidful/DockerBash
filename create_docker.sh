@@ -26,7 +26,7 @@ sudo docker run -itd \
                 --name $USER_NAME \
                 --hostname $USER_NAME \
                 --gpus all \
-                pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-devel
+                pytorch/pytorch:latest
 
 sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server"
 
