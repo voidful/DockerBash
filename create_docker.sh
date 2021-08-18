@@ -24,7 +24,7 @@ sudo docker run -itd \
                 --hostname $USER_NAME \
                 ubuntu:20.04
 
-sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server"
+sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server micro nano"
 
 
 sudo docker exec -ti $USER_NAME sh -c "echo \"root:${USER_PWD}\" | chpasswd;
