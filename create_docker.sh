@@ -17,17 +17,17 @@ if [ ${#USER_NAME} == 0 -o ${#SSH_PORT} == 0 -o ${#USER_PORT} == 0 ] ; then
     exit 0
 fi
 
-arrPORT=(${USER_PORT// / })
+arrPORT=("${USER_PORT// / }")
 
 echo -e "\nYou Setting:"
-echo "User: ${USER_NAME}"
-echo "Password: ${USER_PWD}"
-echo "SSH Port: ${SSH_PORT}"
+echo "User: $USER_NAME"
+echo "Password: $USER_PWD"
+echo "SSH Port: $SSH_PORT"
 echo "Published ports: "
 
 len=${#arrPORT[@]}
 
-for (( i=0; i<${len}; i++ ));
+for (( i=0; i<"$len"; i++ ));
 do
   echo "${arrPORT[$i]}"
   Port+="-p ${arrPORT[$i]} "
@@ -42,25 +42,25 @@ fi
 
 
 sudo docker run -itd \
-                -p $SSH_PORT:22 \
-                ${Port} \
-                --name $USER_NAME \
-                --hostname $USER_NAME \
-                ${IMAGE}
+                -p "$SSH_PORT":22 \
+                "$Port" \
+                --name "$USER_NAME" \
+                --hostname "$USER_NAME" \
+                "$IMAGE"
 
-sudo docker exec -ti $USER_NAME sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server ${PACKAGE}"
+sudo docker exec -ti "$USER_NAME" sh -c "apt-get update && apt-get -y upgrade && apt-get install -y openssh-server $PACKAGE"
 
 
-sudo docker exec -ti $USER_NAME sh -c "echo \"root:${USER_PWD}\" | chpasswd;
+sudo docker exec -ti "$USER_NAME" sh -c "echo \"root:$USER_PWD\" | chpasswd;
                                        sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config;
                                        sed -i 's/#PasswordAuthentication/PasswordAuthentication/' /etc/ssh/sshd_config;
                                        sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd;
                                        export PATH=\"$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\";
                                        wget -P /etc/fail2ban/ https://raw.githubusercontent.com/voidful/DockerBash/master/jail.local;"
 
-sudo docker restart $USER_NAME
+sudo docker restart "$USER_NAME"
 
-sudo docker exec -ti $USER_NAME sh -c "service ssh start"
+sudo docker exec -ti "$USER_NAME" sh -c "service ssh start"
 
 echo "Container create finish"
-echo "Login as root, SSH port ${SSH_PORT}"
+echo "Login as root, SSH port $SSH_PORT"
