@@ -12,7 +12,7 @@ read -p "Docker image  : " IMAGE
 read -p "Apt package (nano vim...) : " PACKAGE
 
 
-if [ ${#USER_NAME} == 0 -o ${#SSH_PORT} == 0 -o ${#USER_PORT} == 0] ; then
+if [ ${#USER_NAME} == 0 -o ${#SSH_PORT} == 0 -o ${#USER_PORT} == 0 ] ; then
     echo "Please at least enter the user name and the port number"
     exit 0
 fi
@@ -32,6 +32,13 @@ do
   echo "${arrPORT[$i]}"
   Port+="-p ${arrPORT[$i]} "
 done
+
+read -p "Are you sure ? [Y/n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Nn]$ ]]
+then
+    exit
+fi
 
 
 sudo docker run -itd \
